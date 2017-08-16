@@ -24,11 +24,16 @@ namespace SSLWeb.Models
 
         public void AddContact()
         {
+            /*
+            * Bind XML to Content Controls
+            * Save Word Document
+            *  Display Word Document
+            */
             using (WordprocessingDocument SSLDoc = WordprocessingDocument.Open(DocFullName, true))
             {
                 MainDocumentPart SSLMain = SSLDoc.MainDocumentPart;
 
-                // Retrieve Databinding ID Code.
+                // Retrieve Databinding ID Code. Assuming 1 set of content controls with binding to ONE customxml part
                 Wrd13.DataBinding contentdatabinding = SSLMain.Document.Descendants<Wrd13.DataBinding>().FirstOrDefault();
                 string databindingvalue = contentdatabinding.StoreItemId;
 
