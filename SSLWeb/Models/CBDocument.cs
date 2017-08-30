@@ -22,15 +22,18 @@ namespace SSLWeb.Models
          */
         private class ClientInfo
         {
-            /*
-                foreach (var DocData in WordData)
-                {
-                    using (StreamReader SSLDataFS = new StreamReader(XmlFileFullName))
+            void Merge()
+            {
+                /*
+                    foreach (var DocData in WordData)
                     {
-                        DocData.FeedData(SSLDataFS.BaseStream);
+                        using (StreamReader SSLDataFS = new StreamReader(XmlFileFullName))
+                        {
+                            DocData.FeedData(SSLDataFS.BaseStream);
+                        }
                     }
-                }
-             */
+                 */
+            }
         }
 
         private class AutoText { }
@@ -41,6 +44,12 @@ namespace SSLWeb.Models
 
         public CBDocument() { }
 
+        public void GenerateSSL()
+        {
+            ClientInfo CI = new ClientInfo();
+            AutoText AT = new AutoText();
+            ContentControl CC = new ContentControl();
+        }
 
         public void AddContact()
         {

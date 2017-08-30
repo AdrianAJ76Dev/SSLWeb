@@ -9,7 +9,7 @@ using System.IO;
 namespace SSLWeb.Models
 {
     [Serializable,
-        XmlRoot(Namespace = "http//www.collegeboard/sdp/contractsmanagement/SSL")]
+        XmlRoot(Namespace = "http//www.collegeboard/sdp/contractsmanagement/SSL/Contact/")]
     public class SSL
     {
         public string firstname = string.Empty;
