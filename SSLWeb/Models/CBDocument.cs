@@ -17,10 +17,30 @@ namespace SSLWeb.Models
 {
     public class CBDocument
     {
-        public CBDocument() { }
+        /* 08/30/2017 These are the internal classes. They are the simpliest expression
+         * of the architecture of merging that I learned at Micro-Modeling Associates
+         */
+        private class ClientInfo
+        {
+            /*
+                foreach (var DocData in WordData)
+                {
+                    using (StreamReader SSLDataFS = new StreamReader(XmlFileFullName))
+                    {
+                        DocData.FeedData(SSLDataFS.BaseStream);
+                    }
+                }
+             */
+        }
+
+        private class AutoText { }
+        private class ContentControl { }
 
         public string DocFullName { get; set; }
         public string XmlFileFullName { get; set; }
+
+        public CBDocument() { }
+
 
         public void AddContact()
         {
@@ -42,10 +62,6 @@ namespace SSLWeb.Models
                                                       where cxml.CustomXmlPropertiesPart.DataStoreItem.ItemId == databindingvalue
                                                       select cxml;
 
-                var SSLData = from cxml in SSLMain.CustomXmlParts
-                              where cxml.Uri.AbsoluteUri == "http://www.collegeboard.org/sdp/contractsmanagment/SSL/Contact"
-                              select cxml;
-
                 foreach (var DocData in WordData)
                 {
                     using (var reader = new StreamReader(DocData.GetStream(), Encoding.UTF8))
@@ -66,7 +82,6 @@ namespace SSLWeb.Models
                 SSLMain.Document.Save();
                 SSLDoc.Close();
             }
-
         }
     }
 }

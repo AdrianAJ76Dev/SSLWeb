@@ -9,7 +9,7 @@ using System.IO;
 namespace SSLWeb.Models
 {
     [Serializable,
-        XmlRoot(Namespace = "http//www.collegeboard/sdp/contractsmanagement/SSL/Contact/")]
+        XmlRoot(Namespace = "http//www.collegeboard/sdp/contractsmanagement/SSL")]
     public class SSL
     {
         public string firstname = string.Empty;
@@ -29,7 +29,6 @@ namespace SSLWeb.Models
         {
             pathxmlfile = @"D:\Dev Projects\SSL\Documents\";
             namexmlfile = "SSL.xml";
-
         }
 
        public void CreateLetter()
@@ -37,6 +36,10 @@ namespace SSLWeb.Models
             /* Serialize to XML
            * Pass XML to Word Document
            */
+            pathxmlfile = @"D:\Dev Projects\SSL\Documents\";
+            namexmlfile = "SSL.xml";
+            namewordfile = "Sole Source Letter v2.dotx";
+
             this.SerializeSSLAsXML();
             CBDocument SSLDoc = new CBDocument();
             SSLDoc.DocFullName = pathxmlfile + namewordfile;
@@ -49,11 +52,10 @@ namespace SSLWeb.Models
            SSLDoc.AddContact();
         }
 
-
         private void SerializeSSLAsXML()
         {
             XmlSerializer SSLXml = new XmlSerializer(typeof(SSL));
-            FileStream fs = new FileStream(pathxmlfile + namexmlfile, FileMode.OpenOrCreate);
+            FileStream fs = new FileStream(pathxmlfile + namexmlfile, FileMode.Create);
             SSLXml.Serialize(fs, this);
             fs.Close();
         }
