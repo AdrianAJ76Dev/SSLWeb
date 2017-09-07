@@ -1,4 +1,4 @@
-﻿using System;
+﻿  using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -24,9 +24,9 @@ namespace SSLWeb.Controllers
         }
 
         // POST: api/SSL
-        public void Post([FromBody]SSL SSLContact)
+        public void Post([FromBody]SSL SoleSourceLetter)
         {
-            SSLContact.CreateLetter();
+            SoleSourceLetter.CreateLetter();
         }
 
         // PUT: api/SSL/5

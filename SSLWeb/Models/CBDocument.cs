@@ -20,29 +20,15 @@ namespace SSLWeb.Models
         /* 08/30/2017 These are the internal classes. They are the simpliest expression
          * of the architecture of merging that I learned at Micro-Modeling Associates
          */
-        private class ClientInfo
-        {
-            void Merge()
-            {
-                /*
-                    foreach (var DocData in WordData)
-                    {
-                        using (StreamReader SSLDataFS = new StreamReader(XmlFileFullName))
-                        {
-                            DocData.FeedData(SSLDataFS.BaseStream);
-                        }
-                    }
-                 */
-            }
-        }
-
+        private class ClientInfo { }
         private class AutoText { }
         private class ContentControl { }
+
+        public CBDocument() { }
 
         public string DocFullName { get; set; }
         public string XmlFileFullName { get; set; }
 
-        public CBDocument() { }
 
         public void GenerateSSL()
         {
