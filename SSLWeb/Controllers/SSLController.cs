@@ -26,7 +26,7 @@ namespace SSLWeb.Controllers
         // POST: api/SSL
         public void Post([FromBody]SSL SoleSourceLetter)
         {
-            SoleSourceLetter.CreateLetter();
+            SoleSourceLetter.Generate();
         }
 
         // PUT: api/SSL/5

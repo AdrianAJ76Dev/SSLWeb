@@ -8,8 +8,6 @@ using System.IO;
 
 namespace SSLWeb.Models
 {
-    [Serializable,
-        XmlRoot(Namespace = "http//www.collegeboard/sdp/contractsmanagement/SSL/Contact/")]
     public enum ssltype:byte
     {
         k12=0,
@@ -27,10 +25,18 @@ namespace SSLWeb.Models
         JeremySinger=4,
     }
 
+    [Serializable, XmlRoot(Namespace = "http//www.collegeboard/sdp/contractsmanagement/SSL/Contact/")]
     public class SSL
     {
         // Defaults
-       // Contact
+        // Template
+        private const string namewordfile = "Sole Source Letter v3.dotx";
+        private const string namexmlfile = "SSL.xml";
+        private const string pathxmlfile = @"D:\Dev Projects\SSL\Documents\";
+        private const string sslnamespace = @"http//www.collegeboard/sdp/contractsmanagement/SSL/Contact/";
+        private string dataidlink = string.Empty;
+
+       // Contact Fields - This is the JSON object that is passed to the controller
         private string firstname = string.Empty;
         private string lastname = string.Empty;
         private string title = string.Empty;
@@ -39,19 +45,6 @@ namespace SSLWeb.Models
         private string city = string.Empty;
         private string state = string.Empty;
         private string zipcode = string.Empty;
-
-        // AutoText
-        private string[] autotextlistssltype = { "SSL-K12", "SSL-HED", "Sole Source - Price Warranty", "Sole Source - Price Warranty 2", "Sole Source - Price Warranty 3" };
-        private string[] autotextlistsslsignature = { "David C Meade Jr", "Cyndie Schmeiser", "Trevor Packer", "Auditi Chakravarty", "Jeremy Singer"};
-        private ssltype lettertype = ssltype.k12;
-        private sslsignature signaturechoice = sslsignature.JaneDapkus;
-
-        // Template
-        private const string pathxmlfile = @"D:\Dev Projects\SSL\Documents\";
-        private const string namexmlfile = "SSL.xml";
-        private const string namewordfile = "Sole Source Letter v3.dotx";
-        private const string sslnamespace = @"http//www.collegeboard/sdp/contractsmanagement/SSL/Contact/";
-        private string dataidlink = string.Empty;
 
         // Properties
         // Contact fields for the serialization.
@@ -64,41 +57,40 @@ namespace SSLWeb.Models
         public string State { get { return state; } set { state = value; } }
         public string ZipCode { get { return zipcode; } set { zipcode = value; } }
 
+        // Document name fields
+        public string TemplateFullName { get { return pathxmlfile + namewordfile; } }
+        public string CustomXMLFileName { get { return pathxmlfile + namexmlfile; } }
+
+        // AutoText
+        private string[] autotextlistssltype = { "SSL-K12", "SSL-HED", "Sole Source - Price Warranty", "Sole Source - Price Warranty 2", "Sole Source - Price Warranty 3" };
+        private string[] autotextlistsslsignature = { "David C Meade Jr", "Cyndie Schmeiser", "Trevor Packer", "Auditi Chakravarty", "Jeremy Singer"};
+        private ssltype lettertype = ssltype.k12;
+        private sslsignature signaturechoice = sslsignature.JaneDapkus;
+
+        // AutoText values
         // Sole Source Letter Type i.e. enumeration ssltype
         public ssltype LetterType { get { return lettertype; } set { lettertype = value; } }
+
         // Sole Source Letter Signature i.e. enumeration sslsignature
         public sslsignature SignatureChoice { get { return signaturechoice; } set { signaturechoice = value; } }
 
-        public string TemplateFullName { get { return pathxmlfile + namewordfile;} }
-        public string CustomXMLFileName { get { return pathxmlfile + namexmlfile; } }
+        public string LetterTypeName { get { return autotextlistssltype[(int)lettertype]; } }
+        public string Signatory { get { return autotextlistsslsignature[(int)signaturechoice]; } }
 
-        public string ContentControlName
+        public void Generate()
         {
-            get
+            CBDocument SSLDoc = new CBDocument(this.TemplateFullName, this.CustomXMLFileName);
+            SSLDoc.CreateDocumentFromTemplate();
+            if (SSLDoc.AutoTextTotal() > 0)
             {
-                if (this.LetterType==ssltype.hed || this.LetterType==ssltype.k12)
-                {
-                    return "Programs";
-                }
-                else
-                {
-                    return "LetterBody";
-                }
-            }
-        }
 
-        public void CreateLetter()
-        {
+            }
  
             /* Serialize to XML
            * Pass XML to Word Document
            */
             this.SerializeSSLAsXML();
 
-           CBDocument SSLDoc = new CBDocument();
-            SSLDoc.DocFullName = this.TemplateFullName;
-            SSLDoc.XmlFileFullName = this.CustomXMLFileName;
-            SSLDoc.GenerateSSL();
             /*
              * Bind XML to Content Controls
              * Save Word Document
