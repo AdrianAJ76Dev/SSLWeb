@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SSLWeb.Models
 {
-    public enum ssltype:byte
+    public enum SSLtype:byte
     {
         k12=0,
         hed=1,
@@ -16,7 +16,7 @@ namespace SSLWeb.Models
         warranty2=4,
         warranty3=5
     }
-    public enum sslsignature:byte
+    public enum SSLsignature:byte
     {
         DavidCMeadeJr=0,
         JaneDapkus=1,
@@ -64,15 +64,15 @@ namespace SSLWeb.Models
         // AutoText
         private string[] autotextlistssltype = { "SSL-K12", "SSL-HED", "Sole Source - Price Warranty", "Sole Source - Price Warranty 2", "Sole Source - Price Warranty 3" };
         private string[] autotextlistsslsignature = { "David C Meade Jr", "Cyndie Schmeiser", "Trevor Packer", "Auditi Chakravarty", "Jeremy Singer"};
-        private ssltype lettertype = ssltype.k12;
-        private sslsignature signaturechoice = sslsignature.JaneDapkus;
+        private SSLtype lettertype = SSLtype.k12;
+        private SSLsignature signaturechoice = SSLsignature.JaneDapkus;
 
         // AutoText values
         // Sole Source Letter Type i.e. enumeration ssltype
-        public ssltype LetterType { get { return lettertype; } set { lettertype = value; } }
+        public SSLtype LetterType { get { return lettertype; } set { lettertype = value; } }
 
         // Sole Source Letter Signature i.e. enumeration sslsignature
-        public sslsignature SignatureChoice { get { return signaturechoice; } set { signaturechoice = value; } }
+        public SSLsignature SignatureChoice { get { return signaturechoice; } set { signaturechoice = value; } }
 
         public string LetterTypeName { get { return autotextlistssltype[(int)lettertype]; } }
         public string Signatory { get { return autotextlistsslsignature[(int)signaturechoice]; } }

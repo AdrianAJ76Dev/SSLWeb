@@ -20,27 +20,28 @@ namespace SSLWeb.Models
         private string documentname;
         private string xmlfile;
 
-        public WordprocessingDocument cbtemplate;
-        public WordprocessingDocument newssldoc;
-        public MainDocumentPart cbtemplatemain;
+        private WordprocessingDocument cbtemplate;
+        private WordprocessingDocument newssldoc;
+        private MainDocumentPart cbtemplatemain;
 
+        private CBAutoText docAtx;
+
+        // Constructors
         public CBDocument() { }
         public CBDocument(string DocFullName, string XmlFileFullName)
         {
             documentname = DocFullName;
             xmlfile = XmlFileFullName;
-        }
-        
-        public void CreateDocumentSimple() { }
-        public void CreateDocumentFromTemplate() { }
 
-        private void Initialize()
-        {
             cbtemplate = WordprocessingDocument.Open(documentname, true); //Open template
             cbtemplatemain = cbtemplate.MainDocumentPart;
-            GlossaryDocument GlossaryDoc = 
+
+            GlossaryDocument GlossaryDoc =
                 cbtemplatemain.GetPartsOfType<GlossaryDocumentPart>().FirstOrDefault().GlossaryDocument;
         }
+
+        public void CreateDocumentSimple() { }
+        public void CreateDocumentFromTemplate() { }
 
         public MainDocumentPart TemplateMain { get { return cbtemplatemain; } }
 
@@ -59,7 +60,7 @@ namespace SSLWeb.Models
 
 
             private string autotext;
-            private int autotextcount;
+            private int autotextcount=0;
 
             public CBAutoText() { }
             public CBAutoText(string AutoTextName) {autotextname = AutoTextName;}
@@ -76,12 +77,9 @@ namespace SSLWeb.Models
             {
                 get
                 {
-                    GlossaryDocument GlossaryDoc = cbtemplatemain.GetPartsOfType<GlossaryDocumentPart>().FirstOrDefault().GlossaryDocument;
-
                     var gDocPartBodyPrograms = from x in GlossaryDoc.DocParts
                                                where x.Descendants<DocPartProperties>().FirstOrDefault().DocPartName.Val == autotextname
                                                select x.Descendants<Paragraph>().FirstOrDefault();
-                    // The idea here is just to return the collection of text from the runs
 
                     autotext = gDocPartBodyPrograms.FirstOrDefault().InnerXml;
                     return autotext;
