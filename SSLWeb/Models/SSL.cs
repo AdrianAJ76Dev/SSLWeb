@@ -106,6 +106,4 @@ namespace SSLWeb.Models
             fs.Close();
         }
     }
-
-
 }
