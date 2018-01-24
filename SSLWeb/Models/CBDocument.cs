@@ -23,8 +23,11 @@ namespace SSLWeb.Models
         private WordprocessingDocument cbtemplate;
         private WordprocessingDocument newssldoc;
         private MainDocumentPart cbtemplatemain;
+        private GlossaryDocument GlossaryDoc;
 
         private CBAutoText docAtx;
+
+        private int autotextcount=0;
 
         // Constructors
         public CBDocument() { }
@@ -38,12 +41,19 @@ namespace SSLWeb.Models
 
             GlossaryDocument GlossaryDoc =
                 cbtemplatemain.GetPartsOfType<GlossaryDocumentPart>().FirstOrDefault().GlossaryDocument;
+
+            if (GlossaryDoc!=null)
+            {
+                autotextcount=GlossaryDoc.DocParts.Count();
+            }
         }
 
         public void CreateDocumentSimple() { }
         public void CreateDocumentFromTemplate() { }
 
         public MainDocumentPart TemplateMain { get { return cbtemplatemain; } }
+        public GlossaryDocument AutoTextDoc { get { return GlossaryDoc; } }
+        public int AutoTextTotal { get{ return autotextcount; } set{ autotextcount = value; } }
 
         private class CBAutoText
         {
@@ -62,8 +72,15 @@ namespace SSLWeb.Models
             private string autotext;
             private int autotextcount=0;
 
+            private CBDocument parentdoc;
+
             public CBAutoText() { }
-            public CBAutoText(string AutoTextName) {autotextname = AutoTextName;}
+            public CBAutoText(string AutoTextName)
+            {
+                autotextname = AutoTextName;
+            }
+
+            public CBDocument ParentDoc { get { return parentdoc; } set { parentdoc=value; }  }
 
             public int Total
             {
