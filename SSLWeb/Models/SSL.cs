@@ -32,7 +32,7 @@ namespace SSLWeb.Models
         // Template
         private const string namewordfile = "Sole Source Letter v3.dotx";
         private const string namexmlfile = "SSL.xml";
-        private const string pathxmlfile = @"D:\Dev Projects\SSL\Documents\";
+        private const string pathxmlfile = @"C:\Users\Adria\Documents\Dev Projects\SSL\Documents\";
         private const string sslnamespace = @"http//www.collegeboard/sdp/contractsmanagement/SSL/Contact/";
         private string dataidlink = string.Empty;
 
@@ -81,10 +81,10 @@ namespace SSLWeb.Models
         {
             CBDocument SSLDoc = new CBDocument(this.TemplateFullName, this.CustomXMLFileName);
             SSLDoc.CreateDocumentFromTemplate();
-            if (SSLDoc.AutoTextTotal() > 0)
-            {
+            //if (SSLDoc.AutoTextTotal() > 0)
+            //{
 
-            }
+            //}
  
             /* Serialize to XML
            * Pass XML to Word Document

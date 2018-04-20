@@ -94,21 +94,21 @@ namespace SSLWeb.Models
             {
                 get
                 {
-                    var gDocPartBodyPrograms = from x in GlossaryDoc.DocParts
-                                               where x.Descendants<DocPartProperties>().FirstOrDefault().DocPartName.Val == autotextname
-                                               select x.Descendants<Paragraph>().FirstOrDefault();
+                    //    var gDocPartBodyPrograms = from x in GlossaryDoc.DocParts
+                    //                               where x.Descendants<DocPartProperties>().FirstOrDefault().DocPartName.Val == autotextname
+                    //                               select x.Descendants<Paragraph>().FirstOrDefault();
 
-                    autotext = gDocPartBodyPrograms.FirstOrDefault().InnerXml;
+                    //    autotext = gDocPartBodyPrograms.FirstOrDefault().InnerXml;
                     return autotext;
                 }
             }
         }
 
-        public int AutoTextTotal()
-        {
-            CBAutoText at = new CBAutoText();
-            return at.Total;
-        }
+        //public int AutoTextTotal()
+        //{
+        //    CBAutoText at = new CBAutoText();
+        //    return at.Total;
+        //}
 
         /* 08/30/2017 These are the internal classes. They are the simpliest expression
           * of the architecture of merging that I learned at Micro-Modeling Associates
